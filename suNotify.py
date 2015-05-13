@@ -13,8 +13,8 @@ while True:
 	if p.poll(1):
 		line = f.stdout.readline()
 
-		msg = line
-		print('sorted input')
+		msg = str(line)
+		print('sorted input ' + msg)
 		fromaddr ="" #your email
 		toaddrs = "" #youremail
 
