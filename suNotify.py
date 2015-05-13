@@ -1,10 +1,11 @@
 import sys
+import os
 import smtplib
 import time
 import subprocess
 import select
 line = ""
-bashHistory = ""
+bashHistory = "/home/archie/.zsh_history"
 f = subprocess.Popen(['tail','-F',bashHistory],\
 	stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 p = select.poll()
@@ -18,8 +19,6 @@ while True:
 		fromaddr ="" #your email
 		toaddrs = "" #youremail
 
-
-
 #creds
 		username ="" #username
 		password ="" #password
@@ -31,4 +30,11 @@ while True:
 		server.sendmail(fromaddr,toaddrs,msg)
 		server.quit()
 		print("email sent")
-	time.sleep(1)
+		
+		#plugin execution string
+		s = ["ls",'./backup.sh']
+		#execute plugins
+		for i in s:
+        		os.system(i)
+		
+		time.sleep(1)
